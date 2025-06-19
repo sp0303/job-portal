@@ -1,0 +1,40 @@
+[debug] [2025-06-19T16:13:46.144Z] ----------------------------------------------------------------------
+[debug] [2025-06-19T16:13:46.150Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-06-19T16:13:46.151Z] CLI Version:   14.7.0
+[debug] [2025-06-19T16:13:46.151Z] Platform:      win32
+[debug] [2025-06-19T16:13:46.151Z] Node Version:  v24.2.0
+[debug] [2025-06-19T16:13:46.151Z] Time:          Thu Jun 19 2025 21:43:46 GMT+0530 (India Standard Time)
+[debug] [2025-06-19T16:13:46.152Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-06-19T16:13:46.524Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-19T16:13:46.525Z] > authorizing via signed-in user (jacobinclu@gmail.com)
+[debug] [2025-06-19T16:13:46.526Z] [iam] checking project job-portal-sp for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-06-19T16:13:46.528Z] Checked if tokens are valid: true, expires at: 1750352715133
+[debug] [2025-06-19T16:13:46.528Z] Checked if tokens are valid: true, expires at: 1750352715133
+[debug] [2025-06-19T16:13:46.530Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/job-portal-sp:testIamPermissions [none]
+[debug] [2025-06-19T16:13:46.530Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/job-portal-sp:testIamPermissions x-goog-quota-user=projects/job-portal-sp
+[debug] [2025-06-19T16:13:46.530Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/job-portal-sp:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-06-19T16:13:48.286Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/job-portal-sp:testIamPermissions 200
+[debug] [2025-06-19T16:13:48.287Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/job-portal-sp:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-06-19T16:13:48.288Z] Checked if tokens are valid: true, expires at: 1750352715133
+[debug] [2025-06-19T16:13:48.288Z] Checked if tokens are valid: true, expires at: 1750352715133
+[debug] [2025-06-19T16:13:48.288Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/job-portal-sp/serviceAccounts/job-portal-sp@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-06-19T16:13:48.288Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/job-portal-sp/serviceAccounts/job-portal-sp@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-06-19T16:13:50.216Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/job-portal-sp/serviceAccounts/job-portal-sp@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-06-19T16:13:50.217Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/job-portal-sp/serviceAccounts/job-portal-sp@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-06-19T16:13:50.217Z] Checked if tokens are valid: true, expires at: 1750352715133
+[debug] [2025-06-19T16:13:50.218Z] Checked if tokens are valid: true, expires at: 1750352715133
+[debug] [2025-06-19T16:13:50.218Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/job-portal-sp [none]
+[debug] [2025-06-19T16:13:51.048Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/job-portal-sp 200
+[debug] [2025-06-19T16:13:51.049Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/job-portal-sp {"projectId":"job-portal-sp","projectNumber":"61406543706","displayName":"job-portal-sp","name":"projects/job-portal-sp","resources":{"hostingSite":"job-portal-sp"},"state":"ACTIVE","etag":"1_e67e1b3b-f8a0-42d5-9bfc-e340cb298bc3"}
+[info] 
+[info] === Deploying to 'job-portal-sp'...
+[info] 
+[info] i  deploying firestore, functions, hosting 
+[info] Running command: npm --prefix firebase/functions run lint
+[debug] [2025-06-19T16:13:58.760Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:267:49)
+    at listOnTimeout (node:internal/timers:608:17)
+    at process.processTimers (node:internal/timers:543:7)
+[error] 
+[error] Error: An unexpected error has occurred.

@@ -1,0 +1,18 @@
+# Node
+node_modules/
+.env
+firebase-service-account.json
+
+# Build files
+client/build/
+server/build/
+firebase/functions/node_modules/
+firebase/functions/lib/
+
+# Logs
+npm-debug.log
+.DS_Store
+
+server/.env
+server/serviceAccountKey.json
+node_modules
