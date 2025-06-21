@@ -179,10 +179,11 @@ export default function EditJob() {
   const [success, setSuccess] = useState(false);
   const [tabValue, setTabValue] = useState(0);
 
+  const API = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const res = await axios.get(`/api/jobs/${id}`);
+        const res = await axios.get(`${API}/jobs/${id}`);
         setJobData({
           ...res.data,
           postedDate: new Date(res.data.postedDate),
@@ -236,7 +237,7 @@ export default function EditJob() {
     setError(null);
 
     try {
-      await axios.put(`/api/jobs/${id}`, {
+      await axios.put(`${API}/jobs/${id}`, {
         ...jobData,
         postedDate: jobData.postedDate.toISOString()
       });

@@ -38,10 +38,10 @@ export default function ManageJobs() {
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('postedAt');
   const navigate = useNavigate();
-
+  const API = process.env.REACT_APP_API_BASE_URL;
   const fetchJobs = async () => {
     try {
-      const res = await axios.get('/api/jobs');
+      const res = await axios.get('${API}/jobs');
       setJobs(res.data);
     } catch (err) {
       console.error('Failed to fetch jobs:', err);
@@ -55,7 +55,7 @@ export default function ManageJobs() {
     if (!window.confirm('Are you sure you want to delete this job?')) return;
     setDeletingId(id);
     try {
-      await axios.delete(`/api/jobs/${id}`);
+      await axios.delete(`${API}/jobs/${id}`);
       setJobs(jobs.filter(job => job.id !== id));
       showSnackbar('Job deleted successfully', 'success');
     } catch (err) {

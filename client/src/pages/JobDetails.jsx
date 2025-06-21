@@ -32,6 +32,7 @@ import {
   DateRange,
   Description
 } from '@mui/icons-material';
+const API = process.env.REACT_APP_API_BASE_URL;
 
 const getRandomColor = () => {
   const colors = ['#00DBDE', '#FC00FF', '#0083FF', '#00FF87', '#FF00F5'];
@@ -45,7 +46,7 @@ export default function JobDetails() {
   const theme = useTheme();
 
   useEffect(() => {
-    axios.get(`/api/jobs/${id}`)
+    axios.get(`${API}/jobs/${id}`)
       .then(res => setJob(res.data))
       .catch(err => console.error(err));
   }, [id]);

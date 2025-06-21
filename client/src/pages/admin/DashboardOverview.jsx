@@ -21,7 +21,7 @@ import {
 } from '@mui/icons-material';
 import { indigo, teal, purple } from '@mui/material/colors';
 import { DataGrid } from '@mui/x-data-grid';
-
+const API = process.env.REACT_APP_API_BASE_URL;
 // Date formatting utility
 const formatDate = (dateString) => {
   if (!dateString) return 'N/A';
@@ -152,7 +152,7 @@ export default function DashboardOverview() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('/api/jobs');
+        const res = await axios.get('${API}/jobs');
         const jobs = res.data;
         
         const now = new Date();

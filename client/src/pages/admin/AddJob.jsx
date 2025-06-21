@@ -28,6 +28,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { styled, alpha } from '@mui/system';
 import { motion } from 'framer-motion';
 
+const API = process.env.REACT_APP_API_BASE_URL;
 
 const GradientPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -194,7 +195,7 @@ export default function AddJob() {
     setError(null);
 
     try {
-      await axios.post('/api/jobs', {
+      await axios.post('${API}/jobs', {
         ...jobData,
         postedDate: jobData.postedDate.toISOString()
       });

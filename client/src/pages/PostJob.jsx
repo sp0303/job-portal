@@ -27,6 +27,7 @@ import {
 } from '@mui/icons-material';
 import { styled, alpha } from '@mui/system';
 
+const API = process.env.REACT_APP_API_BASE_URL;
 const GradientPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   marginTop: theme.spacing(6),
@@ -121,7 +122,7 @@ export default function PostJob() {
     setError(null);
 
     try {
-      await axios.post('/api/jobs', jobData);
+      await axios.post(`${API}/jobs`, jobData);
       setSuccess(true);
       setTimeout(() => {
         navigate('/jobs');

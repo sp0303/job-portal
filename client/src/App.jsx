@@ -7,6 +7,7 @@ import { createTheme } from '@mui/material/styles';
 import Navbar from './components/Navbar.jsx';
 import AppRoutes from './routes/AppRoutes.jsx';
 import Footer from './components/Footer.jsx';
+const API = process.env.REACT_APP_API_BASE_URL;
 
 // Professional theme configuration
 const getTheme = (mode) =>
@@ -44,20 +45,20 @@ function App() {
 
   const fetchJobs = () => {
     axios
-      .get('/api/jobs')
+      .get('${API}/jobs')
       .then((res) => setJobs(res.data))
       .catch((err) => console.error(err));
   };
 
   const handlePostJob = (jobData) => {
     return axios
-      .post('/api/jobs', jobData)
+      .post('${API}/jobs', jobData)
       .then(() => fetchJobs());
   };
 
   const fetchJob = (id) => {
     return axios
-      .get(`/api/jobs/${id}`)
+      .get(`${API}/jobs/${id}`)
       .then((res) => res.data)
       .catch((err) => console.error(err));
   };

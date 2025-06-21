@@ -18,13 +18,15 @@ import {
   Chip,
   useMediaQuery,
   IconButton,
-  InputAdornment
+  InputAdornment,
+  CircularProgress
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import JobCard from '../components/JobCard';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import TuneIcon from '@mui/icons-material/Tune';
+const API = process.env.REACT_APP_API_BASE_URL;
 
 export default function Jobs() {
   const theme = useTheme();
@@ -39,6 +41,7 @@ export default function Jobs() {
   const [jobsPerPage] = useState(isMobile ? 4 : 8);
   const [showFilters, setShowFilters] = useState(false);
   const [uniqueLocations, setUniqueLocations] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // New loading state
   const navigate = useNavigate();
 
   // Format date for display
@@ -49,7 +52,8 @@ export default function Jobs() {
   };
 
   useEffect(() => {
-    axios.get('/api/jobs')
+    setIsLoading(true); // Set loading to true when starting to fetch
+    axios.get(`${API}/jobs`)
       .then(res => {
         // Sort jobs by postedAt in descending order (newest first)
         const sortedJobs = res.data.sort((a, b) => {
@@ -69,7 +73,8 @@ export default function Jobs() {
         
         setUniqueLocations(locations);
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
+      .finally(() => setIsLoading(false)); // Set loading to false when done
   }, []);
 
   useEffect(() => {
@@ -292,87 +297,107 @@ export default function Jobs() {
         </Paper>
       </motion.div>
       
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Typography variant="body1" color="text.secondary">
-          Showing {indexOfFirstJob + 1}-{Math.min(indexOfLastJob, filteredJobs.length)} of {filteredJobs.length} jobs
-        </Typography>
-        {filteredJobs.length > jobsPerPage && (
-          <Pagination 
-            count={totalPages} 
-            page={page} 
-            onChange={handlePageChange}
-            color="primary"
-            shape="rounded"
-            sx={{ 
-              '& .MuiPaginationItem-root': {
-                color: theme.palette.mode === 'dark' ? '#fff' : 'inherit',
-              }
+      {isLoading ? (
+        <Box sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: '50vh'
+        }}>
+          <CircularProgress 
+            size={60} 
+            thickness={4}
+            sx={{
+              color: theme.palette.mode === 'dark' ? '#64b5f6' : '#1976d2',
+              animationDuration: '800ms',
             }}
           />
-        )}
-      </Box>
-      
-      {currentJobs.length > 0 ? (
+        </Box>
+      ) : (
         <>
-          <Grid container spacing={3}>
-            {currentJobs.map((job, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={job.id}>
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: (index % jobsPerPage) * 0.05 }}
-                  whileHover={{ y: -5 }}
-                  style={{ height: '100%' }}
-                >
-                  <JobCard 
-                    job={{
-                      ...job,
-                      description: truncateDescription(job.description),
-                      postedAt: formatDate(job.postedAt) // Add formatted date
-                    }} 
-                    onClick={() => navigate(`/jobs/${job.id}`)}
-                  />
-                </motion.div>
-              </Grid>
-            ))}
-          </Grid>
-          
-          {filteredJobs.length > jobsPerPage && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="body1" color="text.secondary">
+              Showing {indexOfFirstJob + 1}-{Math.min(indexOfLastJob, filteredJobs.length)} of {filteredJobs.length} jobs
+            </Typography>
+            {filteredJobs.length > jobsPerPage && (
               <Pagination 
                 count={totalPages} 
                 page={page} 
                 onChange={handlePageChange}
                 color="primary"
-                size={isMobile ? 'small' : 'medium'}
+                shape="rounded"
                 sx={{ 
                   '& .MuiPaginationItem-root': {
                     color: theme.palette.mode === 'dark' ? '#fff' : 'inherit',
                   }
                 }}
               />
-            </Box>
+            )}
+          </Box>
+          
+          {currentJobs.length > 0 ? (
+            <>
+              <Grid container spacing={3}>
+                {currentJobs.map((job, index) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={job.id}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: (index % jobsPerPage) * 0.05 }}
+                      whileHover={{ y: -5 }}
+                      style={{ height: '100%' }}
+                    >
+                      <JobCard 
+                        job={{
+                          ...job,
+                          description: truncateDescription(job.description),
+                          postedAt: formatDate(job.postedAt) // Add formatted date
+                        }} 
+                        onClick={() => navigate(`/jobs/${job.id}`)}
+                      />
+                    </motion.div>
+                  </Grid>
+                ))}
+              </Grid>
+              
+              {filteredJobs.length > jobsPerPage && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                  <Pagination 
+                    count={totalPages} 
+                    page={page} 
+                    onChange={handlePageChange}
+                    color="primary"
+                    size={isMobile ? 'small' : 'medium'}
+                    sx={{ 
+                      '& .MuiPaginationItem-root': {
+                        color: theme.palette.mode === 'dark' ? '#fff' : 'inherit',
+                      }
+                    }}
+                  />
+                </Box>
+              )}
+            </>
+          ) : (
+            <Paper sx={{ p: 4, textAlign: 'center' }}>
+              <Typography variant="h6" gutterBottom>
+                No jobs found
+              </Typography>
+              <Typography color="text.secondary">
+                Try adjusting your search filters or search term
+              </Typography>
+              {hasFilters && (
+                <Box sx={{ mt: 2 }}>
+                  <Chip 
+                    label="Clear all filters" 
+                    onClick={clearFilters}
+                    color="primary"
+                    variant="outlined"
+                  />
+                </Box>
+              )}
+            </Paper>
           )}
         </>
-      ) : (
-        <Paper sx={{ p: 4, textAlign: 'center' }}>
-          <Typography variant="h6" gutterBottom>
-            No jobs found
-          </Typography>
-          <Typography color="text.secondary">
-            Try adjusting your search filters or search term
-          </Typography>
-          {hasFilters && (
-            <Box sx={{ mt: 2 }}>
-              <Chip 
-                label="Clear all filters" 
-                onClick={clearFilters}
-                color="primary"
-                variant="outlined"
-              />
-            </Box>
-          )}
-        </Paper>
       )}
     </Container>
   );
