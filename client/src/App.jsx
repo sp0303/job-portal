@@ -45,14 +45,14 @@ function App() {
 
   const fetchJobs = () => {
     axios
-      .get('${API}/jobs')
+      .get(`${API}/jobs`)
       .then((res) => setJobs(res.data))
       .catch((err) => console.error(err));
   };
 
   const handlePostJob = (jobData) => {
     return axios
-      .post('${API}/jobs', jobData)
+      .post(`${API}/jobs`, jobData)
       .then(() => fetchJobs());
   };
 

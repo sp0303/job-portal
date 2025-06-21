@@ -41,7 +41,7 @@ export default function ManageJobs() {
   const API = process.env.REACT_APP_API_BASE_URL;
   const fetchJobs = async () => {
     try {
-      const res = await axios.get('${API}/jobs');
+      const res = await axios.get(`${API}/jobs`);
       setJobs(res.data);
     } catch (err) {
       console.error('Failed to fetch jobs:', err);

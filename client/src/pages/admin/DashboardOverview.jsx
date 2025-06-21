@@ -152,7 +152,7 @@ export default function DashboardOverview() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('${API}/jobs');
+        const res = await axios.get(`${API}/jobs`);
         const jobs = res.data;
         
         const now = new Date();

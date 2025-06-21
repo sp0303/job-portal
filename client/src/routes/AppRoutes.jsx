@@ -4,6 +4,7 @@ import Jobs from '../pages/Jobs';
 import JobDetails from '../pages/JobDetails';
 import PostJob from '../pages/PostJob';
 import GovernmentJobs from '../pages/GovernmentJobs';
+import Employers from '../pages/Employers';
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import AddJob from '../pages/admin/AddJob';
 import ManageJobs from '../pages/admin/ManageJobs';
@@ -20,6 +21,7 @@ const AppRoutes = ({ jobs, fetchJobs, fetchJob, handlePostJob }) => (
     <Route path="/jobs/:id" element={<JobDetails fetchJob={fetchJob} />} />
     {/* <Route path="/post-job" element={<PostJob handlePostJob={handlePostJob} />} /> */}
     <Route path="/government-jobs" element={<GovernmentJobs />} />
+    <Route path="/employers" element={<Employers />} />
 
     <Route path="/login" element={<LoginPage />} />
 

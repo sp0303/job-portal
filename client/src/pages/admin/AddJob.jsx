@@ -195,7 +195,7 @@ export default function AddJob() {
     setError(null);
 
     try {
-      await axios.post('${API}/jobs', {
+      await axios.post(`${API}/jobs`, {
         ...jobData,
         postedDate: jobData.postedDate.toISOString()
       });
